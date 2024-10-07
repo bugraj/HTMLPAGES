@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+        Hello, {{ user }}!
+
+        {% if request.path != '/' and request.path != '/home/' %}
+            <a href="{% url 'home' %}">Home</a>
+        {% endif %}
+        <a href="{% url 'logout' %}">Logout</a>
+        <br>
+        You have {{user.rate_plan}} plan.
+        
+        {% if user.rate_plan == 'pro' %}
+        <a href="{% url 'create_chat_room' %}">Create Chat Room</a>
+        {% endif %}
+
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+
+        {% endif %}
+    </nav>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#friend-select').select2({
+                placeholder: "Select a friend to chat with",
+                allowClear: true
+            });
+        });
+    </script>
+</body>
+
+</html>

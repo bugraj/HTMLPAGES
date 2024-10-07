@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="errorlist">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password1" name="password1"><br>
+
+    <label for="password2">Confirm Password again:</label><br>
+    <input type="password" id="password2" name="password2"><br>
+
+    <label for="rate_plan">Choose a plan:</label>
+    <select name="rate_plan" id="rate_plan">
+        <option value="basic">Basic</option>
+        <option value="pro">Pro</option>
+    </select><br>
+
+    <input type="submit" value="Signup">
+</form>
+{% endblock %}
